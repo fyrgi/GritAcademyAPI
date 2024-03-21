@@ -50,6 +50,10 @@ public class StudentServiceImpl implements StudentService{
     }
 
     @Override
+    public List<Student> findStudentsWithoutCity(String city) {
+        return studentDAO.findStudentsWithoutCity(city);
+    }
+    @Override
     @Transactional
     public void deleteById(long id) {
         studentDAO.deleteById(id);

@@ -33,13 +33,37 @@ public class StudentController {
         return studentService.findById(studentId);
     }
 
-    @GetMapping("/students/city={city}")
+    @GetMapping("/students/first-name/{firstName}")
+    private List<Student> getStudentsByFirstName(@PathVariable String firstName) {
+        if (studentService.findByFirstName(firstName) == null ){
+            throw new RuntimeException("No students with first name "+ firstName +".");
+        }
+        return studentService.findByFirstName(firstName);
+    }
+
+    @GetMapping("/students/last-name/{lastName}")
+    private List<Student> getStudentsByLastName(@PathVariable String lastName) {
+        if (studentService.findByLastName(lastName) == null ){
+            throw new RuntimeException("No students with last name "+ lastName +".");
+        }
+        return studentService.findByLastName(lastName);
+    }
+
+    @GetMapping("/students/city/{city}")
     private List<Student> getStudentsByCity(@PathVariable String city) {
+        // We get the student city even if they don't have one. That happens with another query in StudentDAO
+        if(city.equalsIgnoreCase("null")){
+            if (studentService.findStudentsWithoutCity(city) == null ){
+                throw new RuntimeException("No students without data for City.");
+            }
+            return studentService.findStudentsWithoutCity(city);
+        }
         if (studentService.findByCity(city) == null ){
             throw new RuntimeException("No students from "+ city +".");
         }
         return studentService.findByCity(city);
     }
+
     @PostMapping("/students")
     public void save(@RequestBody Student newStudent){
         // set the id to 0. Since it is Long add the L after 0 to cast it from int to long

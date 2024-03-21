@@ -36,8 +36,13 @@ public class CourseServiceImpl implements CourseService{
     }
 
     @Override
-    public Course findByName(String name) {
-        return null;
+    public List<Course> findByName(String name) {
+        return courseDAO.findByName(name);
+    }
+
+    @Override
+    public List<Course> findByDescription(String description) {
+        return courseDAO.findByDescription(description);
     }
 
     @Override
@@ -46,7 +51,6 @@ public class CourseServiceImpl implements CourseService{
     }
 
     @Override
-    @Transactional
     public Student findTheStudentsOfTheCourse(long id) {
         return courseDAO.findTheStudentsOfTheCourse(id);
     }

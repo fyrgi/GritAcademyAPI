@@ -39,4 +39,24 @@ public class CourseController {
         }
         return courseService.findById(courseId);
     }
+
+    @GetMapping("/courses/name/{courseName}")
+    private List<Course> getCourse(@PathVariable String courseName) {
+        if (courseService.findByName(courseName) == null ){
+            throw new RuntimeException("Course with name "+ courseName +" is not found.");
+        }
+        return courseService.findByName(courseName);
+    }
+    @GetMapping("/courses/description/{description}")
+    private List<Course> getCoursesByDescription(@PathVariable String description) {
+        /*// We get the student city even if they don't have one. That happens with another query in StudentDAO
+        if(description.equalsIgnoreCase("null")){
+
+            return courseService.findCoursesWithoutDescription(description);
+        }*/
+        if (courseService.findByDescription(description) == null ){
+            throw new RuntimeException("The part \""+ description + "\" of the description could not be found in any course.");
+        }
+        return courseService.findByDescription(description);
+    }
 }

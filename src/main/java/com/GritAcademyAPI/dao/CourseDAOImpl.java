@@ -43,6 +43,19 @@ public class CourseDAOImpl implements CourseDAO{
     }
 
     @Override
+    public List<Course> findByName(String name){
+        TypedQuery<Course> found = entityManager.createQuery("FROM Course WHERE name = :data ", Course.class);
+        found.setParameter("data", name);
+        return found.getResultList();
+    }
+
+    @Override
+    public List<Course> findByDescription(String description) {
+        TypedQuery<Course> found = entityManager.createQuery("FROM Course WHERE description LIKE :data ", Course.class);
+        found.setParameter("data", "%" + description + "%");
+        return found.getResultList();
+    }
+    @Override
     public Student findTheStudentsOfTheCourse(long id) {
         TypedQuery<Student> requestData = entityManager.createQuery("SELECT s FROM Student s JOIN FETCH s.courses WHERE s.id = :givenId", Student.class);
         requestData.setParameter("givenId", id);

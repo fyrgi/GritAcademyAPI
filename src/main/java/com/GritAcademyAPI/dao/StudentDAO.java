@@ -17,10 +17,10 @@ public interface StudentDAO {
     Student findById(long id);
 
     List<Student> findAll();
-
     List<Student> findByFirstName(String firstName);
     List<Student> findByLastName(String lastNme);
     List<Student> findByCity(String city);
+    List<Student> findStudentsWithoutCity(String city);
     void deleteById(long id);
     Course findTheCoursesOfTheStudent(long id);
 }

@@ -35,7 +35,7 @@ public class StudentDAOImpl implements StudentDAO{
     @Override
     public List<Student> findAll() {
         // create query. FROM is not the name of the table but the Entity instead
-        TypedQuery<Student> findAll = entityManager.createQuery("FROM Student ORDER BY firstName ASC, lastName ASC", Student.class);
+        TypedQuery<Student> findAll = entityManager.createQuery("FROM Student ORDER BY id ASC", Student.class);
 
         //return results
         return findAll.getResultList();
@@ -43,19 +43,30 @@ public class StudentDAOImpl implements StudentDAO{
 
     @Override
     public List<Student> findByFirstName(String firstName) {
-        TypedQuery<Student> found = entityManager.createQuery("FROM Student ", Student.class);
-
+        TypedQuery<Student> found = entityManager.createQuery("FROM Student WHERE firstName = :data ", Student.class);
+        found.setParameter("data", firstName);
+        //found.setParameter("data", "%" + firstName + "%"); //used when firstName LIKE :data
         return found.getResultList();
     }
 
     @Override
-    public List<Student> findByLastName(String lastNme) {
-        return null;
+    public List<Student> findByLastName(String lastName) {
+        TypedQuery<Student> found = entityManager.createQuery("FROM Student WHERE lastName = :data ", Student.class);
+        found.setParameter("data", lastName);
+        return found.getResultList();
     }
 
     @Override
     public List<Student> findByCity(String city) {
-        return null;
+        TypedQuery<Student> found = entityManager.createQuery("FROM Student WHERE city = :data ", Student.class);
+        found.setParameter("data", city);
+        return found.getResultList();
+    }
+
+    @Override
+    public List<Student> findStudentsWithoutCity(String city) {
+        TypedQuery<Student> found = entityManager.createQuery("FROM Student WHERE city IS NULL OR city = ''", Student.class);
+        return found.getResultList();
     }
 
     @Override

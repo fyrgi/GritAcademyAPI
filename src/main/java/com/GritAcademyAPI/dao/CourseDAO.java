@@ -11,7 +11,9 @@ public interface CourseDAO {
     Course findById(long id);
 
     List<Course> findAll();
+    List<Course> findByName(String name);
 
+    List<Course> findByDescription(String description);
     void deleteById(long id);
     Student findTheStudentsOfTheCourse(long id);
 
