@@ -1,7 +1,9 @@
 package com.GritAcademyAPI.dao;
 
+import com.GritAcademyAPI.dto.StudentDTO;
 import com.GritAcademyAPI.entity.Course;
 import com.GritAcademyAPI.entity.Student;
+import com.GritAcademyAPI.entity.StudentCourse;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -70,8 +72,20 @@ public class StudentDAOImpl implements StudentDAO{
     }
 
     @Override
+    public void deleteAllCoursesForStudent(long id) {
+        TypedQuery<StudentCourse> found = entityManager.createQuery("SELECT sc FROM StudentCourse sc WHERE sc.idStudent.id = :studentId", StudentCourse.class);
+        found.setParameter("studentId", id);
+        List<StudentCourse> studentCourses = found.getResultList();
+        for (StudentCourse studentCourse : studentCourses) {
+            System.out.println("Entered The result of the courses");
+            entityManager.remove(studentCourse);
+        }
+    }
+    @Override
     public void deleteById(long id) {
+        System.out.println("Entered deleteById");
         Student toBeDeleted = entityManager.find(Student.class, id);
+        deleteAllCoursesForStudent(id);
         entityManager.remove(toBeDeleted);
     }
 

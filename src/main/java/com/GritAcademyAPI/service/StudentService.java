@@ -16,6 +16,7 @@ public interface StudentService {
     List<Student> findByCity(String city);
     List<Student> findStudentsWithoutCity(String city);
     void deleteById(long id);
+    void deleteAllCoursesForStudent(long id);
 
     Course findTheCoursesOfTheStudent(long id);
 }

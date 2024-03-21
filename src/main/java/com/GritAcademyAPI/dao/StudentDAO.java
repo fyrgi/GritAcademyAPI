@@ -21,6 +21,7 @@ public interface StudentDAO {
     List<Student> findByLastName(String lastNme);
     List<Student> findByCity(String city);
     List<Student> findStudentsWithoutCity(String city);
+    void deleteAllCoursesForStudent(long id);
     void deleteById(long id);
     Course findTheCoursesOfTheStudent(long id);
 }

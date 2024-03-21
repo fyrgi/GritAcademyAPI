@@ -7,6 +7,7 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -35,5 +36,16 @@ public class StudentCourseDAOImpl implements StudentCourseDAO{
 
         //return results
         return findAll.getResultList();
+    }
+
+    @Override
+    public void deleteAllCoursesForStudent(long id) {
+        TypedQuery<StudentCourse> found = entityManager.createQuery("SELECT sc FROM StudentCourse sc WHERE sc.idStudent.id = :studentId", StudentCourse.class);
+        found.setParameter("studentId", id);
+        List<StudentCourse> studentCourses = found.getResultList();
+        for (StudentCourse studentCourse : studentCourses) {
+            System.out.println("Entered The result of the courses");
+            entityManager.remove(studentCourse);
+        }
     }
 }

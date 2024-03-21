@@ -6,6 +6,7 @@ import com.GritAcademyAPI.entity.Course;
 import com.GritAcademyAPI.entity.Student;
 import com.GritAcademyAPI.entity.StudentCourse;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -29,5 +30,11 @@ public class StudentCourseServiceImpl implements StudentCourseService{
     @Override
     public List<StudentCourse> findAllRecords() {
         return studentCourseDAO.findAllRecords();
+    }
+
+    @Override
+    @Transactional
+    public void deleteAllCoursesForStudent(long id){
+        studentCourseDAO.deleteAllCoursesForStudent(id);
     }
 }

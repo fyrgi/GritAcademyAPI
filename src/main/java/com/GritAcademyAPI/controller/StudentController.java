@@ -2,6 +2,7 @@ package com.GritAcademyAPI.controller;
 
 import com.GritAcademyAPI.dto.StudentDTO;
 import com.GritAcademyAPI.entity.Student;
+import com.GritAcademyAPI.service.StudentCourseService;
 import com.GritAcademyAPI.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -32,7 +33,17 @@ public class StudentController {
                 .map(student -> new StudentDTO(student.getId(), student.getFirstName(), student.getLastName(), student.getCity()))
                 .collect(Collectors.toList());
     }
-    // add mapping
+
+    @DeleteMapping("/students/{studentId}")
+    public void deleteStudent(@PathVariable long studentId){
+        Student record = studentService.findById(studentId);
+        if(record == null){
+            throw new RuntimeException("Student with id "+ studentId +" is not found.");
+        }
+        studentService.deleteAllCoursesForStudent(studentId);
+        studentService.deleteById(studentId);
+    }
+
     @GetMapping("/students/{studentId}")
     private Student getStudent(@PathVariable long studentId) {
         if (studentService.findById(studentId) == null ){
@@ -78,5 +89,7 @@ public class StudentController {
         newStudent.setId(0L);
         studentService.save(newStudent);
     }
+
+
 
 }

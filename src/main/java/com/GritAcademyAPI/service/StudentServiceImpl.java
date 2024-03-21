@@ -61,6 +61,11 @@ public class StudentServiceImpl implements StudentService{
 
     @Override
     @Transactional
+    public void deleteAllCoursesForStudent(long id) {
+        studentDAO.deleteAllCoursesForStudent(id);
+    }
+    @Override
+    @Transactional
     public Course findTheCoursesOfTheStudent(long id) {
         return studentDAO.findTheCoursesOfTheStudent(id);
     }
