@@ -1,5 +1,7 @@
 package com.GritAcademyAPI.controller;
 
+import com.GritAcademyAPI.dto.CoursesDTO;
+import com.GritAcademyAPI.dto.StudentDTO;
 import com.GritAcademyAPI.entity.Course;
 import com.GritAcademyAPI.entity.Student;
 import com.GritAcademyAPI.service.CourseService;
@@ -14,6 +16,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/v1")
@@ -26,9 +29,19 @@ public class CourseController {
         courseService = theCourseService;
     }
 
-    @GetMapping("/courses")
-    private List<Course> findAll() {
+    // Find the information of the courses with the student list
+    @GetMapping("/courses-full")
+    private List<Course> findAllFull() {
         return courseService.findAll();
+    }
+
+    // Find the information of all courses without the student list.
+    @GetMapping("/courses")
+    private List<CoursesDTO> findAll() {
+        List<Course> courses = courseService.findAll();
+        return courses.stream()
+                .map(course -> new CoursesDTO(course.getId(), course.getName(), course.getDescription()))
+                .collect(Collectors.toList());
     }
 
     // add mapping

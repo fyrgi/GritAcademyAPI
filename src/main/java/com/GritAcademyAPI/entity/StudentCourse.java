@@ -10,7 +10,7 @@ import lombok.ToString;
 @Getter
 @Setter
 @Entity
-@Table(name="student_courses")
+@Table(name="student_course")
 @ToString
 public class StudentCourse {
 
@@ -19,9 +19,11 @@ public class StudentCourse {
     @Column(name="id")
     private Long id;
 
-    @Column(name = "id_student")
-    private Long idStudent;
+    @ManyToOne
+    @JoinColumn(name = "id_student", referencedColumnName = "id")
+    private Student idStudent;
 
-    @Column(name = "id_course")
-    private Long idCourse;
+    @ManyToOne
+    @JoinColumn(name = "id_course", referencedColumnName = "id")
+    private Course idCourse;
 }

@@ -1,11 +1,13 @@
 package com.GritAcademyAPI.controller;
 
+import com.GritAcademyAPI.dto.StudentDTO;
 import com.GritAcademyAPI.entity.Student;
 import com.GritAcademyAPI.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/v1")
@@ -19,11 +21,17 @@ public class StudentController {
         studentService = theStudentService;
     }
 
-    @GetMapping("/students")
-    private List<Student> findAll() {
+    @GetMapping("/students-full")
+    private List<Student> findAllFull() {
         return studentService.findAll();
     }
-
+    @GetMapping("/students")
+    private List<StudentDTO> findAll() {
+        List<Student> students = studentService.findAll();
+        return students.stream()
+                .map(student -> new StudentDTO(student.getId(), student.getFirstName(), student.getLastName(), student.getCity()))
+                .collect(Collectors.toList());
+    }
     // add mapping
     @GetMapping("/students/{studentId}")
     private Student getStudent(@PathVariable long studentId) {
