@@ -7,10 +7,7 @@ import com.GritAcademyAPI.entity.Student;
 import com.GritAcademyAPI.service.CourseService;
 import com.GritAcademyAPI.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -72,4 +69,15 @@ public class CourseController {
         }
         return courseService.findByDescription(description);
     }
+
+    @DeleteMapping("/courses/{courseId}")
+    public void deleteCourse(@PathVariable long courseId){
+        Course record = courseService.findById(courseId);
+        if(record == null){
+            throw new RuntimeException("Course with id "+ courseId +" is not found.");
+        }
+        courseService.deleteAllStudentRegistrations(courseId);
+        courseService.deleteById(courseId);
+    }
+
 }

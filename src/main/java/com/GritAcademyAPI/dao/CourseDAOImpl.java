@@ -2,6 +2,7 @@ package com.GritAcademyAPI.dao;
 
 import com.GritAcademyAPI.entity.Course;
 import com.GritAcademyAPI.entity.Student;
+import com.GritAcademyAPI.entity.StudentCourse;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,6 +56,23 @@ public class CourseDAOImpl implements CourseDAO{
         found.setParameter("data", "%" + description + "%");
         return found.getResultList();
     }
+
+    @Override
+    public List<Course> findCoursesWithoutDescription(String description) {
+        TypedQuery<Course> found = entityManager.createQuery("FROM Course WHERE description IS NULL OR description = ''", Course.class);
+        return found.getResultList();
+    }
+
+    @Override
+    public void deleteAllStudentRegistrations(long id) {
+        TypedQuery<StudentCourse> found = entityManager.createQuery("SELECT sc FROM StudentCourse sc WHERE sc.idCourse.id = :courseId", StudentCourse.class);
+        found.setParameter("courseId", id);
+        List<StudentCourse> studentCourses = found.getResultList();
+        for (StudentCourse studentCourse : studentCourses) {
+            entityManager.remove(studentCourse);
+        }
+    }
+
     @Override
     public Student findTheStudentsOfTheCourse(long id) {
         TypedQuery<Student> requestData = entityManager.createQuery("SELECT s FROM Student s JOIN FETCH s.courses WHERE s.id = :givenId", Student.class);

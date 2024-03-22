@@ -27,7 +27,7 @@ public class CourseServiceImpl implements CourseService{
     @Override
     @Transactional
     public void save(Course newCourse) {
-
+        courseDAO.save(newCourse);
     }
 
     @Override
@@ -46,8 +46,20 @@ public class CourseServiceImpl implements CourseService{
     }
 
     @Override
+    public List<Course> findCoursesWithoutDescription(String description) {
+        return courseDAO.findCoursesWithoutDescription(description);
+    }
+
+    @Override
+    @Transactional
+    public void deleteAllStudentRegistrations(long id) {
+        courseDAO.deleteAllStudentRegistrations(id);
+    }
+
+    @Override
     @Transactional
     public void deleteById(long id) {
+        courseDAO.deleteById(id);
     }
 
     @Override

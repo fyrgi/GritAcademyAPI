@@ -5,6 +5,8 @@ import com.GritAcademyAPI.entity.Student;
 import com.GritAcademyAPI.service.StudentCourseService;
 import com.GritAcademyAPI.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -22,9 +24,11 @@ public class StudentController {
         studentService = theStudentService;
     }
 
+    // Wrapping in ResponseEntity gives more control over the Http response. Used when not as straightforward approach
+    // of Http response is happening.
     @GetMapping("/students-full")
-    private List<Student> findAllFull() {
-        return studentService.findAll();
+    private ResponseEntity<List<Student>> findAllFull() {
+        return new ResponseEntity<>(studentService.findAll(), HttpStatus.OK);
     }
     @GetMapping("/students")
     private List<StudentDTO> findAll() {

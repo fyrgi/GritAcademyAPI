@@ -2,12 +2,12 @@ package com.GritAcademyAPI;
 
 import com.GritAcademyAPI.dao.StudentDAO;
 import com.GritAcademyAPI.entity.Student;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.Bean;
-
 import java.util.List;
+import java.util.Map;
 
 @SpringBootApplication
 public class GritAcademyApiApplication {
@@ -16,7 +16,7 @@ public class GritAcademyApiApplication {
 		SpringApplication.run(GritAcademyApiApplication.class, args);
 	}
 
-	@Bean
+	/*@Bean
 	public CommandLineRunner commandLineRunner(StudentDAO studentDAO){
 		return runner -> {
 			// addStudent(studentDAO);
@@ -47,5 +47,6 @@ public class GritAcademyApiApplication {
 		System.out.println("Displaying student with id "+tempStudent.getId());
 
 	}
+*/
 
 }

@@ -12,6 +12,8 @@ public interface CourseService {
     Course findById(long id);
     List<Course> findByName(String name);
     List<Course> findByDescription(String description);
+    List<Course> findCoursesWithoutDescription(String description);
+    void deleteAllStudentRegistrations(long id);
     void deleteById(long id);
     Student findTheStudentsOfTheCourse(long id);
 }
