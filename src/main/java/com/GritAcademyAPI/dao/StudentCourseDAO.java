@@ -7,9 +7,9 @@ import com.GritAcademyAPI.entity.StudentCourse;
 import java.util.List;
 
 public interface StudentCourseDAO {
-    List<Course> findTheCoursesOfAStudent(Long studentId);
-    List<Student> findThStudentsInACourse(Long courseId);
+    List<StudentCourse> findTheCoursesOfAStudent(Long studentId);
+    List<StudentCourse> findThStudentsInACourse(Long courseId);
     List<StudentCourse> findAllRecords();
-    void deleteAllCoursesForStudent(long id);
+    void deleteRegistration(long id);
     void save(StudentCourse registration);
 }

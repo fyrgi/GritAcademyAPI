@@ -67,7 +67,7 @@ public class CourseDAOImpl implements CourseDAO{
 
     @Override
     public void deleteAllStudentRegistrations(long id) {
-        TypedQuery<StudentCourse> found = entityManager.createQuery("SELECT sc FROM StudentCourse sc WHERE sc.idCourse.id = :courseId", StudentCourse.class);
+        TypedQuery<StudentCourse> found = entityManager.createQuery("SELECT sc FROM StudentCourse sc WHERE sc.course.id = :courseId", StudentCourse.class);
         found.setParameter("courseId", id);
         List<StudentCourse> studentCourses = found.getResultList();
         for (StudentCourse studentCourse : studentCourses) {

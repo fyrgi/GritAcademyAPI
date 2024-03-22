@@ -78,7 +78,7 @@ public class StudentDAOImpl implements StudentDAO{
 
     @Override
     public void deleteAllCoursesForStudent(long id) {
-        TypedQuery<StudentCourse> found = entityManager.createQuery("SELECT sc FROM StudentCourse sc WHERE sc.idStudent.id = :studentId", StudentCourse.class);
+        TypedQuery<StudentCourse> found = entityManager.createQuery("SELECT sc FROM StudentCourse sc WHERE sc.student.id = :studentId", StudentCourse.class);
         found.setParameter("studentId", id);
         List<StudentCourse> studentCourses = found.getResultList();
         for (StudentCourse studentCourse : studentCourses) {
@@ -88,7 +88,6 @@ public class StudentDAOImpl implements StudentDAO{
     }
     @Override
     public void deleteById(long id) {
-        System.out.println("Entered deleteById");
         Student toBeDeleted = entityManager.find(Student.class, id);
         deleteAllCoursesForStudent(id);
         entityManager.remove(toBeDeleted);

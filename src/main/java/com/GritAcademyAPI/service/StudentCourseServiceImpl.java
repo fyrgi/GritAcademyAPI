@@ -18,12 +18,12 @@ public class StudentCourseServiceImpl implements StudentCourseService{
         studentCourseDAO = theStudentCourseDAO;
     }
     @Override
-    public List<Course> findTheCoursesOfAStudent(Long studentId) {
+    public List<StudentCourse> findTheCoursesOfAStudent(Long studentId) {
         return studentCourseDAO.findTheCoursesOfAStudent(studentId);
     }
 
     @Override
-    public List<Student> findThStudentsInACourse(Long courseId) {
+    public List<StudentCourse> findThStudentsInACourse(Long courseId) {
         return studentCourseDAO.findThStudentsInACourse(courseId);
     }
 
@@ -34,8 +34,8 @@ public class StudentCourseServiceImpl implements StudentCourseService{
 
     @Override
     @Transactional
-    public void deleteAllCoursesForStudent(long id){
-        studentCourseDAO.deleteAllCoursesForStudent(id);
+    public void deleteRegistration(long id){
+        studentCourseDAO.deleteRegistration(id);
     }
 
     @Override

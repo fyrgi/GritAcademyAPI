@@ -18,36 +18,34 @@ public class StudentCourseDAOImpl implements StudentCourseDAO{
     public StudentCourseDAOImpl(EntityManager entityManager){
         this.entityManager = entityManager;
     }
+
     @Override
-    public List<Course> findTheCoursesOfAStudent(Long studentId) {
-        TypedQuery<Course> found = entityManager.createQuery("FROM StudentCourse WHERE idStudent = :data ", Course.class);
+    public List<StudentCourse> findTheCoursesOfAStudent(Long studentId) {
+        TypedQuery<StudentCourse> found = entityManager.createQuery("FROM StudentCourse WHERE student.id = :data ", StudentCourse.class);
         found.setParameter("data", studentId);
         return found.getResultList();
     }
 
     @Override
-    public List<Student> findThStudentsInACourse(Long courseId) {
-        return null;
+    public List<StudentCourse> findThStudentsInACourse(Long courseId) {
+        TypedQuery<StudentCourse> found = entityManager.createQuery("FROM StudentCourse WHERE course.id = :data ", StudentCourse.class);
+        found.setParameter("data", courseId);
+        return found.getResultList();
     }
 
     @Override
     public List<StudentCourse> findAllRecords() {
         TypedQuery<StudentCourse> findAll = entityManager.createQuery("FROM StudentCourse ORDER BY id ASC", StudentCourse.class);
 
-        //return results
         return findAll.getResultList();
     }
 
     @Override
-    public void deleteAllCoursesForStudent(long id) {
-        TypedQuery<StudentCourse> found = entityManager.createQuery("SELECT sc FROM StudentCourse sc WHERE sc.idStudent.id = :studentId", StudentCourse.class);
-        found.setParameter("studentId", id);
-        List<StudentCourse> studentCourses = found.getResultList();
-        for (StudentCourse studentCourse : studentCourses) {
-            System.out.println("Entered The result of the courses");
-            entityManager.remove(studentCourse);
-        }
+    public void deleteRegistration(long id) {
+        StudentCourse toBeDeleted = entityManager.find(StudentCourse.class, id);
+        entityManager.remove(toBeDeleted);
     }
+
     @Override
     public void save(StudentCourse registration) {
         StudentCourse managedRegistration = entityManager.merge(registration);

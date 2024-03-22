@@ -32,7 +32,14 @@ public class Course {
     @Column(name = "description")
     private String description;
 
-    @ManyToMany(mappedBy = "courses", fetch = FetchType.LAZY)
+    //@ManyToMany(mappedBy = "courses", fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.LAZY,
+            cascade = CascadeType.ALL)
+    @JoinTable(
+            name="student_course",
+            joinColumns = @JoinColumn(name = "id_course"),
+            inverseJoinColumns = @JoinColumn(name = "id_student")
+    )
     @JsonIgnoreProperties("courses")
     //@JsonBackReference
     private Set<Student> students;

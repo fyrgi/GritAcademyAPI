@@ -20,10 +20,24 @@ public class StudentCourse {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "id_student", referencedColumnName = "id")
-    private Student idStudent;
+    @JoinColumn(name = "id_student", referencedColumnName = "id", insertable = false, updatable = false)
+    private Student student;
 
     @ManyToOne
-    @JoinColumn(name = "id_course", referencedColumnName = "id")
-    private Course idCourse;
+    @JoinColumn(name = "id_course", referencedColumnName = "id", insertable = false, updatable = false)
+    private Course course;
+
+    // This new implementation fixes a problem where a new record couldn't be add via post and postman because it
+    // expected Object type Student and Object Type Course.
+    @Column(name = "id_student")
+    private Long dbStudentId;
+
+    @Column(name = "id_course")
+    private Long dbCourseId;
+
+    public StudentCourse(Long idStudent, Long idCourse){
+        this.dbStudentId = idStudent;
+        this.dbCourseId = idCourse;
+    }
+
 }
