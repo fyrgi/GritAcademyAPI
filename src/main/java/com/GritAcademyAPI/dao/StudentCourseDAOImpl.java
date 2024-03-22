@@ -48,4 +48,9 @@ public class StudentCourseDAOImpl implements StudentCourseDAO{
             entityManager.remove(studentCourse);
         }
     }
+    @Override
+    public void save(StudentCourse registration) {
+        StudentCourse managedRegistration = entityManager.merge(registration);
+        entityManager.persist(managedRegistration);
+    }
 }

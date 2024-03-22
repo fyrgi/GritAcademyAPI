@@ -21,7 +21,9 @@ public class CourseDAOImpl implements CourseDAO{
 
     @Override
     public void save(Course newCourse) {
-        entityManager.persist(newCourse);
+        //entityManager.persist(newCourse);
+        Course managedCourse = entityManager.merge(newCourse);
+        entityManager.persist(managedCourse);
     }
 
     @Override

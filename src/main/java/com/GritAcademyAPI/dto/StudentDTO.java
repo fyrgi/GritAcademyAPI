@@ -14,13 +14,10 @@ public class StudentDTO {
     private String lastName;
     private String city;
 
-    // Constructor, getters, and setters
     public StudentDTO(Long id, String firstName, String lastName, String city) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.city = city;
     }
-
-    // Getters and setters
 }

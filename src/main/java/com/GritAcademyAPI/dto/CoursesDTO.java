@@ -11,8 +11,7 @@ public class CoursesDTO {
     private Long id;
     private String name;
     private String description;
-
-    // Constructor, getters, and setters
+    
     public CoursesDTO(Long id, String name, String description) {
         this.id = id;
         this.name = name;

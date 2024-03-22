@@ -11,4 +11,6 @@ public interface StudentCourseService {
     List<Student> findThStudentsInACourse(Long courseId);
     List<StudentCourse> findAllRecords();
     void deleteAllCoursesForStudent(long id);
+
+    public void save(StudentCourse registration);
 }

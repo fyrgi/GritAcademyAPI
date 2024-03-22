@@ -4,6 +4,7 @@ import com.GritAcademyAPI.dto.CoursesDTO;
 import com.GritAcademyAPI.dto.StudentDTO;
 import com.GritAcademyAPI.entity.Course;
 import com.GritAcademyAPI.entity.Student;
+import com.GritAcademyAPI.entity.StudentCourse;
 import com.GritAcademyAPI.service.CourseService;
 import com.GritAcademyAPI.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -78,6 +79,11 @@ public class CourseController {
         }
         courseService.deleteAllStudentRegistrations(courseId);
         courseService.deleteById(courseId);
+    }
+
+    @PostMapping("/courses")
+    public void save(@RequestBody Course newCourse)  {
+        courseService.save(newCourse);
     }
 
 }

@@ -6,6 +6,7 @@ import com.GritAcademyAPI.entity.Student;
 import com.GritAcademyAPI.entity.StudentCourse;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -26,7 +27,11 @@ public class StudentDAOImpl implements StudentDAO{
 
     @Override
     public void save(Student newStudent) {
-        entityManager.persist(newStudent);
+        // Because I am using Postman to ensure that the POST is working I had a problem with persist() causing HTTP response 500
+        //entityManager.persist(newStudent);
+        // instead I use the merge() first and then commit which works perfectly in Postman, ensuring adding data to the database.
+        Student managedStudent = entityManager.merge(newStudent);
+        entityManager.persist(managedStudent);
     }
 
     @Override

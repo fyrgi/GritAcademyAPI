@@ -6,10 +6,7 @@ import com.GritAcademyAPI.entity.StudentCourse;
 import com.GritAcademyAPI.service.StudentCourseService;
 import com.GritAcademyAPI.service.StudentCourseServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -31,5 +28,10 @@ public class StudentCourseController {
     @GetMapping("/registrations")
     private List<StudentCourse> findAll()  {
         return studentCourseService.findAllRecords();
+    }
+
+    @PostMapping("/registrations")
+    public void save(@RequestBody StudentCourse registration)  {
+        studentCourseService.save(registration);
     }
 }

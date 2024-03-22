@@ -37,4 +37,10 @@ public class StudentCourseServiceImpl implements StudentCourseService{
     public void deleteAllCoursesForStudent(long id){
         studentCourseDAO.deleteAllCoursesForStudent(id);
     }
+
+    @Override
+    @Transactional
+    public void save(StudentCourse registration) {
+        studentCourseDAO.save(registration);
+    }
 }

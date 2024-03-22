@@ -11,4 +11,5 @@ public interface StudentCourseDAO {
     List<Student> findThStudentsInACourse(Long courseId);
     List<StudentCourse> findAllRecords();
     void deleteAllCoursesForStudent(long id);
+    void save(StudentCourse registration);
 }
